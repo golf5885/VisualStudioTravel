@@ -28,9 +28,9 @@ const ChatCancel = ({ character, onTextChange, setEat, setStay, setDo, Do }) => 
   };
 
   const cancelQuestions = [
-    "호텔의 예약이 취소되었습니다. 다음으로 무엇을 할까요?",
-    "어떤 음료를 드시래요?",
-    "어떤 카페를 원하세요?"
+    "큰일났습니다.. 파리가 아닌 다른 지점을 예약하셨네요. 어떻게 할까요?",
+    "구체적으로 어떤 음료를 먹고 싶은지 말씀해주세요.",
+    "선호하는 카페에 대해 구체적으로 알려주시면 더 좋은 추천을 해드릴게요."
   ];
 
   if (questionIndex === cancelQuestions.length) {

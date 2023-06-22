@@ -40,6 +40,7 @@ const Cancel = () => {
     }
   }, [videoEnded]);
   
+  
   return (
     <div className="video-chat-container">
       <div className="home-container">

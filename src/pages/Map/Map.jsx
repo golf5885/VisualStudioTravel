@@ -17,7 +17,6 @@ function Map() {
   const { character } = useParams();
   const navigate = useNavigate();
   const mapRef = useRef(null);
-  const [showLoading, setShowLoading] = useState(true);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [selectedCity, setSelectedCity] = useState('');
 
@@ -142,17 +141,6 @@ function Map() {
     };
   }, []);
 
-  useEffect(() => {
-    // Hide the loading spinner after 2 seconds
-    const timeout = setTimeout(() => {
-      setShowLoading(false);
-    }, 2000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []);
-
   const handleConfirm = () => {
     navigate(`/${character}/airport`);
   };
@@ -164,8 +152,6 @@ function Map() {
   return (
     <div className="map-wrapper">
       <div className="title">Visual Studio Travel</div> {/* Title added */}
-      {showLoading && <Loading />}
-      <div className="map-container" ref={mapRef}></div>
       {showConfirmation && (
         <div className="confirmation-modal">
           <div className="confirmation-content">
@@ -182,9 +168,34 @@ function Map() {
           </div>
         </div>
       )}
+      <div className="map-container" ref={mapRef}></div>
     </div>
   );
-
 }
 
-export default Map;
+function MapWithLoading() {
+  const [showLoading, setShowLoading] = useState(true);
+
+  useEffect(() => {
+    // Hide the loading spinner after 2 seconds
+    const timeout = setTimeout(() => {
+      setShowLoading(false);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
+
+  return (
+    <div>
+      {showLoading ? (
+        <Loading loading={showLoading} />
+      ) : (
+        <Map />
+      )}
+    </div>
+  );
+}
+
+export default MapWithLoading;
