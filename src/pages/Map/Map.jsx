@@ -1,4 +1,4 @@
-import React, { useEffect,useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import L from 'leaflet';
 import 'leaflet-providers';
@@ -18,7 +18,9 @@ function Map() {
   const navigate = useNavigate();
   const mapRef = useRef(null);
   const [showLoading, setShowLoading] = useState(true);
-  
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [selectedCity, setSelectedCity] = useState('');
+
   useEffect(() => {
     // Create the map instance
     const map = L.map(mapRef.current, {
@@ -45,7 +47,7 @@ function Map() {
     });
 
     // Create markers with popups
-    const parisMarker = L.marker([44, -11], { icon: customIcon })
+    const parisMarker = L.marker([60, -11], { icon: customIcon })
       .addTo(map)
       .bindPopup(`
         <div class="popup-content">
@@ -94,6 +96,7 @@ function Map() {
     const onMouseOver = (e) => {
       const marker = e.target;
       marker.openPopup();
+      setSelectedCity(marker.options.city); // Update selected city
     };
 
     // Mouseout event handler
@@ -104,37 +107,41 @@ function Map() {
 
     // To airport.js
     const handleClick = () => {
-      navigate(`/${character}/airport`);
+      setShowConfirmation(true);
     };
 
     // Add mouseover, mouseout, and click event listeners to markers
     parisMarker.on('mouseover', onMouseOver);
     parisMarker.on('mouseout', onMouseOut);
     parisMarker.on('click', handleClick);
+    parisMarker.options.city = '파리'; // Add city name to marker options
 
     osakaMarker.on('mouseover', onMouseOver);
     osakaMarker.on('mouseout', onMouseOut);
     osakaMarker.on('click', handleClick);
+    osakaMarker.options.city = '오사카'; // Add city name to marker options
 
     egyptMarker.on('mouseover', onMouseOver);
     egyptMarker.on('mouseout', onMouseOut);
     egyptMarker.on('click', handleClick);
+    egyptMarker.options.city = '이집트'; // Add city name to marker options
 
     newYorkMarker.on('mouseover', onMouseOver);
     newYorkMarker.on('mouseout', onMouseOut);
     newYorkMarker.on('click', handleClick);
+    newYorkMarker.options.city = '뉴욕'; // Add city name to marker options
 
     sydneyMarker.on('mouseover', onMouseOver);
     sydneyMarker.on('mouseout', onMouseOut);
     sydneyMarker.on('click', handleClick);
+    sydneyMarker.options.city = '시드니'; // Add city name to marker options
 
     // Clean up the map instance when the component is unmounted
     return () => {
       map.remove();
     };
   }, []);
-  // <h1 className="map-title">{character}님, 여행할 도시를 선택해 주세요.</h1>
-  
+
   useEffect(() => {
     // Hide the loading spinner after 2 seconds
     const timeout = setTimeout(() => {
@@ -146,12 +153,38 @@ function Map() {
     };
   }, []);
 
+  const handleConfirm = () => {
+    navigate(`/${character}/airport`);
+  };
+
+  const handleCancel = () => {
+    setShowConfirmation(false);
+  };
+
   return (
     <div className="map-wrapper">
+      <div className="title">Visual Studio Travel</div> {/* Title added */}
       {showLoading && <Loading />}
-      <div id="map" className="map-container" ref={mapRef}></div>
+      <div className="map-container" ref={mapRef}></div>
+      {showConfirmation && (
+        <div className="confirmation-modal">
+          <div className="confirmation-content">
+            <h2>Visualize Your Travel</h2>
+            <p>{selectedCity}로 떠나시겠습니까?</p>
+            <div className="confirmation-buttons">
+              <button className="confirm-button" onClick={handleConfirm}>
+                네
+              </button>
+              <button className="cancel-button" onClick={handleCancel}>
+                아니오
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
+
 }
 
 export default Map;

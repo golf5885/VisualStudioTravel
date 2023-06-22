@@ -24,13 +24,18 @@ const ChatAirport = ({ character, onTextChange }) => {
   };
 
   const airportQuestions = [
-    "공항에 도착했습니다. 다음으로 무엇을 할까요?", // 호텔로 이동하는 영상 틀기
+    "공항에 도착했습니다. 다음으로 무엇을 할까요?",
+    "그럼 공항으로 이동할게요" // 호텔로 이동하는 영상 틀기
   ];
 
   if (questionIndex === airportQuestions.length) {
     onTextChange("");
   }
 
+  // const handleNext = () => {
+  //   console.log("Next button clicked");
+  //   navigate(`/${encodeURIComponent(character)}/cancel`);
+  // };
   const handleNext = () => {
     console.log("Next button clicked");
     navigate(`/${encodeURIComponent(character)}/cancel`);

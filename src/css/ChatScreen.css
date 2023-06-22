@@ -12,8 +12,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: rgba(245, 245, 245, 0.8);
-  border-radius: 8px;
-  height: 200px;
+  border-radius: 28px;
+  height: 100px;
   width: 800px;
   overflow-y: scroll;
 }
@@ -38,9 +38,9 @@
 }
 
 .question p {
-  font-size: 18px;
+  font-size: 30px;
   margin-bottom: 10px;
-  width: 100%; /* Set the width to 100% to span the entire container */
+  width: 100%; 
 }
 
 /* ChatMessage CSS */
