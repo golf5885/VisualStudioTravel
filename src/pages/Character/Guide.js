@@ -12,7 +12,6 @@ function Guide({ name, style, img_url }) {
 
   return (
     <div className="one_guide" onClick={handleClick}>
-      <img src={img_url} alt={name} />
       <p className='guide_name'>{name}</p>
       <p>{style}</p>
     </div>

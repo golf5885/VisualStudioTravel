@@ -1,23 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ChatMessage from "../Chat/ChatMessage";
-import ChatInput from "../Chat/ChatInput";
-import Options from "../Options/OptionsDo";
+import ChatCancelInput from "./ChatCancelInput";
+import ChatEat from "../Chat/ChatEat";
+import ChatStay from "../Chat/ChatStay";
+import ChatDo from "../Chat/ChatDo";
+import communicate from "../../communicate";
 
 import "../../css/ChatScreen.css";
 
-const ChatCancel = ({ character, onTextChange }) => {
+const ChatCancel = ({ character, onTextChange, setEat, setStay, setDo, Do }) => {
   const [messages, setMessages] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const navigate = useNavigate();
-  const [showOptions, setShowOptions] = useState(false);
-  const [showChatScreen, setShowChatScreen] = useState(false);
+  const [showChatScreen, setShowChatScreen] = useState(true);
+  const [chatComponent, setChatComponent] = useState(null);
+  const [category, setCategory] = useState("");
 
   const handleSendMessage = (message) => {
     const newMessage = { sender: character, text: message };
-
-    // Send newMessage to the backend
-
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     setQuestionIndex((prevIndex) => prevIndex + 1);
   };
@@ -27,7 +28,7 @@ const ChatCancel = ({ character, onTextChange }) => {
   };
 
   const cancelQuestions = [
-    "호텔의 예약이 취소되었습니다. 다음으로 무엇을 할까요?"
+    "호텔의 예약이 취소되었습니다. 다음으로 무엇을 할까요?",
   ];
 
   if (questionIndex === cancelQuestions.length) {
@@ -35,8 +36,58 @@ const ChatCancel = ({ character, onTextChange }) => {
   }
 
   const handleNext = () => {
-    setShowOptions(true);
-    setShowChatScreen(true);
+    // const category =
+    determineNextScreen(); // 다음 화면 결정
+  };
+
+  useEffect(() => {
+    if (category === "food") {
+      setChatComponent(
+        <ChatEat
+          character={character}
+          onTextChange={handleTextChange}
+          setEat={setEat}
+        />
+      );
+      setShowChatScreen(false);
+    } else if (category === "hotel") {
+      setChatComponent(
+        <ChatStay
+          character={character}
+          onTextChange={handleTextChange}
+          setStay={setStay}
+        />
+      );
+      setShowChatScreen(false);
+    } else if (category === "attraction") {
+      setChatComponent(
+        <ChatDo
+          character={character}
+          onTextChange={handleTextChange}
+          Do={Do}
+          setDo={setDo}
+        />
+      );
+      setShowChatScreen(false);
+    }
+  }, [category]);
+
+  const determineNextScreen = () => {
+    const text = messages[0].text;
+
+    if (text.trim() !== "") {
+      zeroShotClassification(text);
+    }
+  };
+
+  const zeroShotClassification = (text) => {
+    // return hotel;
+    communicate.post("/what", { A: text }).then((res) => {
+      console.log(1)
+      setCategory(res.data.what);
+    });
+    // 관광지, 음식, 호텔 분류 모델 리턴
+    // food, hotel, attraction 중 하나 받아옴
   };
 
   return (
@@ -52,28 +103,27 @@ const ChatCancel = ({ character, onTextChange }) => {
           </div>*/}
 
           {/* 현재 질문 및 input */}
-          {questionIndex < cancelQuestions.length ? (
+          {questionIndex < cancelQuestions.length && (
             <div className="question">
-              {showChatScreen?(
-              <p>{cancelQuestions[questionIndex]}</p>):(
-              <ChatInput
+              <p>{cancelQuestions[questionIndex]}</p>
+              <ChatCancelInput
                 onSendMessage={handleSendMessage}
                 onTextChange={handleTextChange}
-              />)}
+              />
             </div>
-          ):null}
+          )}
 
-          {!showOptions && questionIndex === cancelQuestions.length && (
-                  <button 
-                  className="next-button"
-                  onClick={handleNext}>다음</button>
-                )}
-
+          {questionIndex === cancelQuestions.length && (
+            <button className="next-button" onClick={handleNext}>
+              다음
+            </button>
+          )}
         </div>
       )}
 
-      {/* Options 컴포넌트 */}
-      {showOptions && <Options />}
+      {!showChatScreen && chatComponent && (
+        <div className="chat-component">{chatComponent}</div>
+      )}
     </div>
   );
 };

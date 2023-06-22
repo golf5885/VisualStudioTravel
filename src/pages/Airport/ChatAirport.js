@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ChatMessage from "../Chat/ChatMessage";
-import ChatInput from "../Chat/ChatInput";
+import ChatInput from "../Cancel/ChatCancelInput";
 
-import "../../css/ChatScreen.css";
+import '../../css/ChatScreen.css';
 
 const ChatAirport = ({ character, onTextChange }) => {
   const [messages, setMessages] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [showChatInput, setShowChatInput] = useState(false);
   const navigate = useNavigate();
 
   const handleSendMessage = (message) => {
@@ -37,33 +36,26 @@ const ChatAirport = ({ character, onTextChange }) => {
     navigate(`/${encodeURIComponent(character)}/cancel`);
   };
 
-  const toggleClicked = () => {
-    setShowChatInput(true);
-  };
-
   return (
     <div className="chat-screen">
-      {/* 질문 또는 입력란 */}
-      {questionIndex < airportQuestions.length ? (
+      {/* 메시지 내용 */}
+      {/*<div className="messages">
+        {messages.map((message, index) => (
+          <ChatMessage key={index} message={message} />
+        ))}
+        </div>*/}
+
+      {/* 현재 질문 및 input */}
+      {questionIndex < airportQuestions.length && (
         <div className="question">
-          {showChatInput ? (
-            <ChatInput onSendMessage={handleSendMessage} onTextChange={handleTextChange} />
-          ) : (
-            <p>{airportQuestions[questionIndex]}</p>
-          )}
+          <p>{airportQuestions[questionIndex]}</p>
+          <ChatInput onSendMessage={handleSendMessage} onTextChange={handleTextChange} />
         </div>
-      ) : null}
+      )}
 
       {/* 다음 버튼 */}
       {questionIndex === airportQuestions.length && (
         <button onClick={handleNext}>다음</button>
-      )}
-
-      {/* Toggle 버튼 */}
-      {!showChatInput && questionIndex < airportQuestions.length && (
-        <span className="material-icons" onClick={toggleClicked}>
-          sender
-        </span>
       )}
     </div>
   );
