@@ -29,6 +29,8 @@ const ChatCancel = ({ character, onTextChange, setEat, setStay, setDo, Do }) => 
 
   const cancelQuestions = [
     "호텔의 예약이 취소되었습니다. 다음으로 무엇을 할까요?",
+    "어떤 음료를 드시래요?",
+    "어떤 카페를 원하세요?"
   ];
 
   if (questionIndex === cancelQuestions.length) {
@@ -114,9 +116,9 @@ const ChatCancel = ({ character, onTextChange, setEat, setStay, setDo, Do }) => 
           )}
 
           {questionIndex === cancelQuestions.length && (
-            <button className="next-button" onClick={handleNext}>
-              다음
-            </button>
+            <h2 className="next-button" onClick={handleNext}>
+              입력하신 정보를 기반으로 주변 카페를 알려드릴게요!
+            </h2>
           )}
         </div>
       )}

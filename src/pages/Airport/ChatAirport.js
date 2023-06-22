@@ -25,7 +25,7 @@ const ChatAirport = ({ character, onTextChange }) => {
 
   const airportQuestions = [
     "공항에 도착했습니다. 다음으로 무엇을 할까요?",
-    "그럼 공항으로 이동할게요" // 호텔로 이동하는 영상 틀기
+    "뭐할까요?",
   ];
 
   if (questionIndex === airportQuestions.length) {
@@ -60,7 +60,7 @@ const ChatAirport = ({ character, onTextChange }) => {
 
       {/* 다음 버튼 */}
       {questionIndex === airportQuestions.length && (
-        <button onClick={handleNext}>다음</button>
+        <button onClick={handleNext}>그럼 일단 호텔로 갑시다</button>
       )}
     </div>
   );
