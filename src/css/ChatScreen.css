@@ -39,6 +39,8 @@
 
 .question p {
   font-size: 30px;
+  font-weight: bold; /* Add this line to change the font weight */
+
   margin-bottom: 10px;
   width: 100%; 
 }

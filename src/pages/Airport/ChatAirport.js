@@ -9,6 +9,7 @@ const ChatAirport = ({ character, onTextChange }) => {
   const [messages, setMessages] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const navigate = useNavigate();
+  const [chatInputVisible, setChatInputVisible] = useState(false);
 
   const handleSendMessage = (message) => {
     const newMessage = { sender: character, text: message };
@@ -25,17 +26,18 @@ const ChatAirport = ({ character, onTextChange }) => {
 
   const airportQuestions = [
     "공항에 도착했습니다. 다음으로 무엇을 할까요?",
-    "그럼 공항으로 이동할게요" // 호텔로 이동하는 영상 틀기
+    ""
   ];
 
   if (questionIndex === airportQuestions.length) {
     onTextChange("");
   }
 
-  // const handleNext = () => {
-  //   console.log("Next button clicked");
-  //   navigate(`/${encodeURIComponent(character)}/cancel`);
-  // };
+  const next = () => {
+    setQuestionIndex((prevIndex) => prevIndex + 1);
+    setChatInputVisible(true);
+  };
+
   const handleNext = () => {
     console.log("Next button clicked");
     navigate(`/${encodeURIComponent(character)}/cancel`);
@@ -48,19 +50,21 @@ const ChatAirport = ({ character, onTextChange }) => {
         {messages.map((message, index) => (
           <ChatMessage key={index} message={message} />
         ))}
-        </div>*/}
+      </div>*/}
 
       {/* 현재 질문 및 input */}
       {questionIndex < airportQuestions.length && (
-        <div className="question">
+        <div className="question" onClick={next}>
           <p>{airportQuestions[questionIndex]}</p>
-          <ChatInput onSendMessage={handleSendMessage} onTextChange={handleTextChange} />
+          {chatInputVisible && (
+            <ChatInput onSendMessage={handleSendMessage} onTextChange={handleTextChange} />
+          )}
         </div>
       )}
 
       {/* 다음 버튼 */}
       {questionIndex === airportQuestions.length && (
-        <button onClick={handleNext}>다음</button>
+        <h2 onClick={handleNext}>좋아요. 이동하실까요?</h2>
       )}
     </div>
   );

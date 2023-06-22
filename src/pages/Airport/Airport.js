@@ -3,8 +3,6 @@ import "../../css/Airport.css";
 import ReactPlayer from "react-player";
 import ChatAirport from "./ChatAirport";
 import { useParams} from "react-router-dom";
-import test from '../../icons/test.gif';
-
 import 서우석 from '../../icons/서우석.gif';
 import 민성우 from '../../icons/민성우.gif';
 import 박유찬 from '../../icons/박유찬.gif';

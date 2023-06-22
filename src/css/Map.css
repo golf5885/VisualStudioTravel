@@ -54,7 +54,7 @@
   margin: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/Users/parkyuchan/Desktop/VST/VisualStudioTravel/src/icons/worldmap.png');
+  background-image: url('../icons/worldmap.png');
   background-size: 70%; /* Adjust the background size */
   background-repeat: no-repeat;
   background-position: center;
