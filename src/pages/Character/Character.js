@@ -6,6 +6,11 @@ import '../../css/Character.css';
 import '../../css/Home.css';
 import test from '../../icons/test.gif';
 
+
+import 서우석 from '../../icons/서우석.gif';
+import 민성우 from '../../icons/민성우.gif';
+import 박유찬 from '../../icons/박유찬.gif';
+
 function Character() {
   const characters = [
     { name: '민성우',
@@ -13,21 +18,21 @@ function Character() {
     goal: '역사적인 장소를 탐험하며 독특한 경험을 추구한다.', 
     mbti : "ENTJ", 
     money: "Old and Rich",
-    img_url: 'https://w7.pngwing.com/pngs/390/806/png-transparent-rilakkuma-kakaotalk-kakao-friends-south-korea-kakaofriends-sticker-desktop-wallpaper-snout-thumbnail.png' },
+    img_url: 민성우 },
 
     { name: '박유찬',
     style: "즉흥적이고 성향을 가진 20대 학생이다. 유럽 여행이 처음이고 배낭여행중인 만큼, 자금이 여유롭지 못하다.",
     goal: '유명 관광지만 빠르게 도장 찍고 싶어 한다.',
     mbti : "ESTP",
     money: "Young and Poor",
-    img_url: 'https://e7.pngegg.com/pngimages/982/1017/png-clipart-kakaotalk-kakao-friends-sticker-line-ryan-smiley-sticker.png' },
+    img_url: 박유찬 },
 
     { name: '서우석',
     style: '가족과 함께 방문할 예정이며, 안정적인 여행을 선호한다.',
     goal: '가족과 시간을 즐기며 휴식과 재충전하고 싶어한다.',
     mbti : "ISFJ",
     money: "Young and Rich",
-    img_url: test },
+    img_url: 서우석 },
   ];
 
   return (
