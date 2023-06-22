@@ -9,6 +9,7 @@ const ChatAirport = ({ character, onTextChange }) => {
   const [messages, setMessages] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const navigate = useNavigate();
+  const [chatInputVisible, setChatInputVisible] = useState(false);
 
   const handleSendMessage = (message) => {
     const newMessage = { sender: character, text: message };
@@ -32,10 +33,11 @@ const ChatAirport = ({ character, onTextChange }) => {
     onTextChange("");
   }
 
-  // const handleNext = () => {
-  //   console.log("Next button clicked");
-  //   navigate(`/${encodeURIComponent(character)}/cancel`);
-  // };
+  const next = () => {
+    setQuestionIndex((prevIndex) => prevIndex + 1);
+    setChatInputVisible(true);
+  };
+
   const handleNext = () => {
     console.log("Next button clicked");
     navigate(`/${encodeURIComponent(character)}/cancel`);
@@ -48,13 +50,15 @@ const ChatAirport = ({ character, onTextChange }) => {
         {messages.map((message, index) => (
           <ChatMessage key={index} message={message} />
         ))}
-        </div>*/}
+      </div>*/}
 
       {/* 현재 질문 및 input */}
       {questionIndex < airportQuestions.length && (
-        <div className="question">
+        <div className="question" onClick={next}>
           <p>{airportQuestions[questionIndex]}</p>
-          <ChatInput onSendMessage={handleSendMessage} onTextChange={handleTextChange} />
+          {chatInputVisible && (
+            <ChatInput onSendMessage={handleSendMessage} onTextChange={handleTextChange} />
+          )}
         </div>
       )}
 

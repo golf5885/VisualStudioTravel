@@ -3,11 +3,10 @@ import "../../css/Airport.css";
 import ReactPlayer from "react-player";
 import ChatAirport from "./ChatAirport";
 import { useParams} from "react-router-dom";
-import test from '../../icons/test.gif';
-
 import 서우석 from '../../icons/서우석.gif';
 import 민성우 from '../../icons/민성우.gif';
 import 박유찬 from '../../icons/박유찬.gif';
+import 가이드 from '../../icons/guide.png';
 
 const Airport = () => {
   const { character } = useParams();
@@ -68,6 +67,12 @@ const Airport = () => {
             <img
               src={selectedCharacter.img_url}
               alt={selectedCharacter.name} />
+          </div>
+          <div className="fixed_guide">
+          <img
+              src={가이드}
+              alt="가이드"
+            />
           </div>
           <div className="guide_saying">
               <p>{guideText}</p>

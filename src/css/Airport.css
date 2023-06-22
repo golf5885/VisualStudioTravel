@@ -18,11 +18,19 @@
     height: 100%;
    }
    .selectedCharacter img{
-    position: relative;
-    width: 230px;
-    height: 200px;
-    right: -1120px;
-    bottom: -460px;
+    position: absolute;
+    width: 110px;
+    height: 99px;
+    right: -2180px;
+    bottom: 200px;
     object-fit: cover;
     border-radius: 50%;
+  }
+  .fixed_guide img{
+    position: absolute;
+    width: 160px;
+    height: 280px;
+    right: 1180px;
+    bottom: 50px;
+    object-fit: cover;
   }

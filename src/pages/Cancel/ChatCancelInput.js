@@ -25,13 +25,13 @@ const ChatCancelInput = ({ onSendMessage }) => {
   return (
     <div className="chat-input">
       <input
+      autoFocus
         type="text"
         placeholder="메시지를 입력하세요..."
         value={message}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
-      <button onClick={handleSendClick}>보내기</button>
     </div>
   );
 };
