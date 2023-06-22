@@ -50,10 +50,10 @@ const Cancel = () => {
     <div className="video-chat-container">
       <div className="home-container">
         <ReactPlayer
-          url={'/videos/driving.mp4'}
+          url={'/videos/driving.mp4' + "#t=11"}
           playing={true}
           controls={false}
-          muted={true}
+          muted={false}
           progressInterval={1000}
           pip={true}
           width={'100%'}

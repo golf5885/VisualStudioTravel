@@ -1,36 +1,61 @@
-body {
-  margin: 0;
-  padding: 0;
-}
-
 .map-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  background-color: #FDEED7
-}
-
-.map-title {
-  font-size: 24px;
-}
-
-.guide-saying {
   position: absolute;
-  top: 50%;
+  z-index: -1;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 10px;
-  background-color: #FFF;
-  border-radius: 20px;
-  max-width: 80%;
-  text-align: center;
-  font-size: 18px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0px;
+  width: 130%;
+  height: 130%;
+  background-image: url('/Users/minsungwoo/Desktop/학교/YBIGTA/여행어디로/YBIGTOUR/src/icons/worldmap.png');
+  background-size: contain; /* Adjust the background size */
+  background-size: 50%; /* Adjust the background size */
+  background-repeat: no-repeat;  
+  background-position: center;
+  background-color: #F6EDD6;
 }
 
-.map-wrapper {
+
+.marker {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+
+.marker-icon {
+  width: 64px; /* Increase the size of the marker icon */
+  height: 64px; /* Increase the size of the marker icon */
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: -1px; /* Reduce the spacing between the popup and the image */
+  margin-top: -1px; /* Reduce the spacing between the popup and the image */
+}
+
+.popup-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 1%;
+  margin-bottom: -20px;
+  margin-top: 10px;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.popup-text {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 1px; /* Reduce the spacing between the popup and the image */
+}
+.where{
   position: relative;
+  z-index: 10;
 }

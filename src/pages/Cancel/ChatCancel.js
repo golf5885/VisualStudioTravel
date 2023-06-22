@@ -11,7 +11,7 @@ const ChatCancel = ({ character, onTextChange }) => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const navigate = useNavigate();
   const [showOptions, setShowOptions] = useState(false);
-  const [showChatScreen, setShowChatScreen] = useState(true);
+  const [showChatScreen, setShowChatScreen] = useState(false);
 
   const handleSendMessage = (message) => {
     const newMessage = { sender: character, text: message };
@@ -36,7 +36,7 @@ const ChatCancel = ({ character, onTextChange }) => {
 
   const handleNext = () => {
     setShowOptions(true);
-    setShowChatScreen(false);
+    setShowChatScreen(true);
   };
 
   return (
@@ -52,15 +52,16 @@ const ChatCancel = ({ character, onTextChange }) => {
           </div>*/}
 
           {/* 현재 질문 및 input */}
-          {questionIndex < cancelQuestions.length && (
+          {questionIndex < cancelQuestions.length ? (
             <div className="question">
-              <p>{cancelQuestions[questionIndex]}</p>
+              {showChatScreen?(
+              <p>{cancelQuestions[questionIndex]}</p>):(
               <ChatInput
                 onSendMessage={handleSendMessage}
                 onTextChange={handleTextChange}
-              />
+              />)}
             </div>
-          )}
+          ):null}
 
           {!showOptions && questionIndex === cancelQuestions.length && (
                   <button 

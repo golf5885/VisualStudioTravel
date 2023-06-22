@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import "../../css/Airport.css";
 import ReactPlayer from "react-player";
 import ChatAirport from "./ChatAirport";
-import { useParams, Link } from "react-router-dom";
+import { useParams} from "react-router-dom";
+import test from '../../icons/test.gif';
+
 
 const Airport = () => {
   const { character } = useParams();
   const [guideText, setGuideText] = useState("");
   const [videoEnded, setVideoEnded] = useState(false);
   const [characterVisible, setCharacterVisible] = useState(false);
+  const [ChatAiportVisible, setChatAiportVisible] = useState(false);
 
   const characters = [
     {
@@ -26,8 +29,7 @@ const Airport = () => {
     {
       name: "서우석",
       style: "현지인들과 어울리기를 좋아한다.",
-      img_url:
-        "https://e7.pngegg.com/pngimages/825/741/png-clipart-kakaotalk-kakao-friends-sticker-iphone-iphone-electronics-smiley.png",
+      img_url: test,
     },
   ];
 
@@ -41,6 +43,10 @@ const Airport = () => {
     setVideoEnded(true);
   };
 
+  const toggleClicked = () => {
+    setChatAiportVisible(true);
+  }
+
   useEffect(() => {
     if (videoEnded) {
       setCharacterVisible(true);
@@ -51,26 +57,29 @@ const Airport = () => {
     <div className="video-chat-container">
       <div className="home-container">
         <ReactPlayer
-          url={'/videos/seoul-paris.mp4'}
+          url={'/videos/seoul-paris.mp4' + "#t=11"}
           playing={true}
           controls={false}
-          muted={true}
+          muted={false}
           progressInterval={1000}
           pip={true}
           width={'100%'}
           height={'100%'}
           onEnded={handleVideoEnd}
         />
-        {videoEnded && characterVisible && (
-          <><div className="selectedCharacter">
+        {videoEnded && characterVisible&& (
+          <><div>
+          <div className="selectedCharacter">
             <img
               src={selectedCharacter.img_url}
               alt={selectedCharacter.name} />
-          </div><div className="guide_saying">
+          </div>
+          <div className="guide_saying">
               <p>{guideText}</p>
-              <ChatAirport 
+              {<ChatAirport 
               character={character} 
-              onTextChange={handleTextChange} />
+              onTextChange={handleTextChange} />}
+            </div>
             </div></>
       )}
       </div>
